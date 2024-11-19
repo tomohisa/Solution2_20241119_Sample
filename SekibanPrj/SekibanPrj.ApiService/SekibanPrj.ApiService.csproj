@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SekibanPrj.Domain\SekibanPrj.Domain.csproj" />
+    <ProjectReference Include="..\SekibanPrj.ServiceDefaults\SekibanPrj.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+    <PackageReference Include="Scalar.AspNetCore" Version="1.2.39" />
+    <PackageReference Include="Sekiban.Infrastructure.Postgres" Version="0.22.1" />
+    <PackageReference Include="Sekiban.Web" Version="0.22.1" />
+  </ItemGroup>
+
+</Project>

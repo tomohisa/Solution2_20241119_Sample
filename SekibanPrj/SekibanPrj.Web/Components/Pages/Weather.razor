@@ -1,0 +1,54 @@
+﻿@page "/weather"
+@using Sekiban.Core.Aggregate
+@using Sekiban.Core.Query
+@using Sekiban.Core.Query.QueryModel
+@using SekibanPrj.Domain
+@attribute [StreamRendering(true)]
+@attribute [OutputCache(Duration = 5)]
+
+@inject WeatherApiClient WeatherApi
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather</h1>
+
+<p>This component demonstrates showing data loaded from a backend API service.</p>
+
+@if (Teams.Items.Count() == 0)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th aria-label="Temperature in Celsius">name</th>
+                <th aria-label="Temperature in Farenheit">city</th>
+                <th>league</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var team in Teams.Items)
+            {
+                <tr>
+                    <td>@team.AggregateState.AggregateId</td>
+                    <td>@team.AggregateState.Payload.Name</td>
+                    <td>@team.AggregateState.Payload.City</td>
+                    <td>@team.AggregateState.Payload.League</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WeatherForecast[]? forecasts { get; set; } = null;
+    private ListQueryResult<QueryAggregateState<BaseballTeam>> Teams { get; set; } = ListQueryResult<QueryAggregateState<BaseballTeam>>.Empty;
+    protected override async Task OnInitializedAsync()
+    {
+        // forecasts = await WeatherApi.GetWeatherAsync();
+        Teams = await WeatherApi.GetBaseballTeamsAsync();
+    }
+}
